@@ -1,14 +1,13 @@
-package io.sye;
+package io.sye.service;
 
-import io.sye.models.Repository;
-import io.sye.models.RepositoryInfo;
+import io.sye.api.RepositoryInfo;
 
 public class RepoMapper {
 
   public static RepositoryInfo toRepoInfo(Repository repo) {
     return new RepositoryInfo()
-        .name(repo.name())
-        .owner(repo.owner().login())
+        .repositoryName(repo.name())
+        .ownerLogin(repo.owner().login())
         .branches(repo.branches());
   }
 }

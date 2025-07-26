@@ -1,7 +1,7 @@
-package io.sye.services;
+package io.sye.service.services;
 
-import io.sye.GitHubClient;
-import io.sye.models.Repository;
+import io.sye.service.GitHubClient;
+import io.sye.service.Repository;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Stream;

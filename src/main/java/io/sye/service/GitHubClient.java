@@ -1,26 +1,24 @@
-package io.sye;
+package io.sye.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.sye.models.Branch;
-import io.sye.models.Repository;
+import io.sye.api.Branch;
 import java.util.Collections;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
 public class GitHubClient {
 
-  private final GithubProperties githubProperties;
+  private final ServiceConfig config;
   private final ObjectMapper objectMapper;
 
-  public GitHubClient(GithubProperties githubProperties, ObjectMapper objectMapper) {
-    this.githubProperties = githubProperties;
+  public GitHubClient(ServiceConfig config, ObjectMapper objectMapper) {
+    this.config = config;
     this.objectMapper = objectMapper;
   }
 
@@ -45,19 +43,15 @@ public class GitHubClient {
   }
 
   private String get(String url) {
-    if (url == null) {
-      throw new NullPointerException("URL must not be null");
-    }
-    RestTemplate restTemplate = new RestTemplate();
+    final var restTemplate = new RestTemplate();
 
     HttpHeaders headers = new HttpHeaders();
     headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-    headers.setBearerAuth(githubProperties.getToken());
+    headers.setBearerAuth(config.githubToken());
 
-    HttpEntity<String> entity = new HttpEntity<>(headers);
-    ResponseEntity<String> response =
+    final var entity = new HttpEntity<>(headers);
+    final var response =
         restTemplate.exchange("https://api.github.com" + url, HttpMethod.GET, entity, String.class);
-
     return response.getBody();
   }
 }

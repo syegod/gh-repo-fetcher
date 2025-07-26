@@ -1,4 +1,4 @@
-package io.sye;
+package io.sye.service;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

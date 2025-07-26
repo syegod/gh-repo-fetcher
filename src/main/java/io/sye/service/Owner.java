@@ -1,9 +1,7 @@
-package io.sye.models;
+package io.sye.service;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.util.StringJoiner;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Owner {
 
   private String login;

@@ -1,13 +1,10 @@
-package io.sye.models;
+package io.sye.service;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.sye.api.Branch;
 import java.util.List;
 import java.util.StringJoiner;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Repository {
-
-  private long id;
 
   private String name;
 
@@ -56,9 +53,8 @@ public class Repository {
   @Override
   public String toString() {
     return new StringJoiner(", ", Repository.class.getSimpleName() + "[", "]")
-        .add("id=" + id)
         .add("name='" + name + "'")
-        .add("owner='" + owner + "'")
+        .add("owner=" + owner)
         .add("fork=" + fork)
         .add("branches=" + branches)
         .toString();
