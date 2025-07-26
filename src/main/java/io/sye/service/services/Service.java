@@ -19,9 +19,9 @@ public class Service {
 
   public List<Repository> getRepos(String username) {
     final var reposArray = gitHubClient.getRepos(username);
-    final var repos = Stream.of(reposArray).filter(e -> !e.fork()).toList();
+    final var repositories = Stream.of(reposArray).filter(e -> !e.fork()).toList();
     final var futures =
-        repos.stream()
+        repositories.stream()
             .map(
                 repo ->
                     executorService.submit(

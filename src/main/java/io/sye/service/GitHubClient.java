@@ -23,26 +23,15 @@ public class GitHubClient {
   }
 
   public Repository[] getRepos(String username) {
-    try {
-      final var res = get("/users/" + username + "/repos");
-      return objectMapper.readValue(res, Repository[].class);
-    } catch (JsonProcessingException e) {
-      // TODO: handle properly
-      throw new RuntimeException(e);
-    }
+    return get("/users/" + username + "/repos", Repository[].class);
   }
 
   public Branch[] getBranches(String username, String repo) {
-    try {
-      final var res = get("/repos/" + username + "/" + repo + "/branches");
-      return objectMapper.readValue(res, Branch[].class);
-    } catch (JsonProcessingException e) {
-      // TODO: handle properly
-      throw new RuntimeException(e);
-    }
+    return get("/repos/" + username + "/" + repo + "/branches", Branch[].class);
   }
 
-  private String get(String url) {
+  // TODO: think about error handling
+  private <T> T get(String endpoint, Class<T> valueType) {
     final var restTemplate = new RestTemplate();
 
     HttpHeaders headers = new HttpHeaders();
@@ -51,7 +40,12 @@ public class GitHubClient {
 
     final var entity = new HttpEntity<>(headers);
     final var response =
-        restTemplate.exchange("https://api.github.com" + url, HttpMethod.GET, entity, String.class);
-    return response.getBody();
+        restTemplate.exchange(
+            "https://api.github.com" + endpoint, HttpMethod.GET, entity, String.class);
+    try {
+      return objectMapper.readValue(response.getBody(), valueType);
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

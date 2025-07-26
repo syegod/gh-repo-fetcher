@@ -1,18 +1,12 @@
 package io.sye.service;
 
-import io.sye.api.Branch;
-import java.util.List;
 import java.util.StringJoiner;
 
 public class Repository {
 
   private String name;
-
   private Owner owner;
-
   private boolean fork;
-
-  private List<Branch> branches;
 
   public String name() {
     return name;
@@ -41,22 +35,12 @@ public class Repository {
     return this;
   }
 
-  public List<Branch> branches() {
-    return branches;
-  }
-
-  public Repository branches(List<Branch> branches) {
-    this.branches = branches;
-    return this;
-  }
-
   @Override
   public String toString() {
     return new StringJoiner(", ", Repository.class.getSimpleName() + "[", "]")
         .add("name='" + name + "'")
         .add("owner=" + owner)
         .add("fork=" + fork)
-        .add("branches=" + branches)
         .toString();
   }
 }
