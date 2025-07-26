@@ -1,9 +1,7 @@
 package io.sye.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import java.util.List;
-import java.util.Map;
 import java.util.StringJoiner;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -13,7 +11,7 @@ public class Repository {
 
   private String name;
 
-  private String owner;
+  private Owner owner;
 
   private boolean fork;
 
@@ -28,13 +26,12 @@ public class Repository {
     return this;
   }
 
-  public String owner() {
+  public Owner owner() {
     return owner;
   }
 
-  @JsonSetter("owner")
-  public Repository unpackOwner(Map<String, Object> owner) {
-    this.owner = (String) owner.get("login");
+  public Repository owner(Owner owner) {
+    this.owner = owner;
     return this;
   }
 

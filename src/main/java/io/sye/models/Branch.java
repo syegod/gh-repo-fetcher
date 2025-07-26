@@ -25,7 +25,7 @@ public class Branch {
   }
 
   @JsonSetter("commit")
-  public Branch unpackOwner(Map<String, Object> commit) {
+  public Branch unpackSha(Map<String, Object> commit) {
     this.sha = (String) commit.get("sha");
     return this;
   }
