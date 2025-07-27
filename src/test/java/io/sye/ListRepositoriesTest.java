@@ -30,11 +30,15 @@ public class ListRepositoriesTest {
 
   private static ServiceBootstrap serviceBootstrap;
   private static String url;
-  private static String githubToken = System.getProperty("githubToken");
+  private static String githubToken;
   private static ObjectMapper objectMapper;
 
   @BeforeAll
   static void beforeAll() {
+    githubToken = System.getProperty("githubToken");
+    if (githubToken == null || githubToken.isEmpty()) {
+      throw new IllegalArgumentException("Missing or invalid: githubToken");
+    }
     final var appPort = 8080;
     url = "http://localhost:" + appPort + "/api/repositories";
     serviceBootstrap =
