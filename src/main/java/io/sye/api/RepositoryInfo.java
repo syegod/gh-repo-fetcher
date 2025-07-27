@@ -7,11 +7,11 @@ public class RepositoryInfo {
 
   private String repositoryName;
   private String ownerLogin;
-  private List<Branch> branches;
+  private List<BranchInfo> branches;
 
   public RepositoryInfo() {}
 
-  public RepositoryInfo(String repositoryName, String ownerLogin, List<Branch> branches) {
+  public RepositoryInfo(String repositoryName, String ownerLogin, List<BranchInfo> branches) {
     this.repositoryName = repositoryName;
     this.ownerLogin = ownerLogin;
     this.branches = branches;
@@ -25,7 +25,7 @@ public class RepositoryInfo {
     return ownerLogin;
   }
 
-  public List<Branch> branches() {
+  public List<BranchInfo> branches() {
     return branches;
   }
 

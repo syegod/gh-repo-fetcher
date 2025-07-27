@@ -1,7 +1,8 @@
 package io.sye.service.services;
 
+import io.sye.api.BranchInfo;
 import io.sye.api.RepositoryInfo;
-import io.sye.service.github.GitHubClient;
+import io.sye.service.github.GithubClient;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,9 +12,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class RepositoryService {
 
-  private final GitHubClient gitHubClient;
+  private final GithubClient gitHubClient;
 
-  public RepositoryService(GitHubClient gitHubClient) {
+  public RepositoryService(GithubClient gitHubClient) {
     this.gitHubClient = gitHubClient;
   }
 
@@ -32,7 +33,14 @@ public class RepositoryService {
                         .thenApply(
                             branches ->
                                 new RepositoryInfo(
-                                    repo.name(), repo.owner().login(), List.of(branches))));
+                                    repo.name(),
+                                    repo.owner().login(),
+                                    Arrays.stream(branches)
+                                        .map(
+                                            branch ->
+                                                new BranchInfo(
+                                                    branch.name(), branch.commit().sha()))
+                                        .toList())));
               }
               return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                   .thenApply(v -> futures.stream().map(CompletableFuture::join).toList());

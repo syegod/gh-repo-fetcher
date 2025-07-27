@@ -1,32 +1,32 @@
-package io.sye.api;
+package io.sye.service.github;
 
 import java.util.StringJoiner;
 
 public class Branch {
 
   private String name;
-  private String lastCommitSha;
+  private Commit commit;
 
   public Branch() {}
 
-  public Branch(String name, String lastCommitSha) {
+  public Branch(String name, Commit commit) {
     this.name = name;
-    this.lastCommitSha = lastCommitSha;
+    this.commit = commit;
   }
 
   public String name() {
     return name;
   }
 
-  public String lastCommitSha() {
-    return lastCommitSha;
+  public Commit commit() {
+    return commit;
   }
 
   @Override
   public String toString() {
     return new StringJoiner(", ", Branch.class.getSimpleName() + "[", "]")
         .add("name='" + name + "'")
-        .add("lastCommitSha='" + lastCommitSha + "'")
+        .add("commit=" + commit)
         .toString();
   }
 }
