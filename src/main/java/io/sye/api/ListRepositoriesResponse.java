@@ -15,5 +15,4 @@ public class ListRepositoriesResponse {
   public List<RepositoryInfo> repositories() {
     return repositories;
   }
-
 }
