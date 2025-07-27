@@ -18,9 +18,9 @@ public class RepositoryService {
     this.gitHubClient = gitHubClient;
   }
 
-  public CompletableFuture<List<RepositoryInfo>> getRepos(String username) {
+  public CompletableFuture<List<RepositoryInfo>> getRepos(String githubUser) {
     return gitHubClient
-        .getRepos(username)
+        .getRepos(githubUser)
         .thenApply(
             repositories -> Arrays.stream(repositories).filter(repo -> !repo.fork()).toList())
         .thenCompose(
@@ -29,7 +29,7 @@ public class RepositoryService {
               for (var repo : repositories) {
                 futures.add(
                     gitHubClient
-                        .getBranches(username, repo.name())
+                        .getBranches(githubUser, repo.name())
                         .thenApply(
                             branches ->
                                 new RepositoryInfo(

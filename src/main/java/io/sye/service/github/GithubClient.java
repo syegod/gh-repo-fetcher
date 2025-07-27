@@ -3,6 +3,7 @@ package io.sye.service.github;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.sye.service.ServiceConfig;
+import io.sye.service.ServiceException;
 import java.util.Collections;
 import java.util.concurrent.CompletableFuture;
 import org.springframework.http.HttpEntity;
@@ -54,8 +55,9 @@ public class GithubClient {
             })
         .exceptionally(
             throwable -> {
-              if (throwable.getCause() instanceof RestClientResponseException ex) {
-                throw new GithubException(ex.getStatusCode(), ex.getMessage());
+              if (throwable.getCause() instanceof RestClientResponseException ex
+                  && ex.getStatusCode().value() != 401) {
+                throw new ServiceException(ex.getStatusCode(), ex.getMessage());
               } else {
                 throw new RuntimeException(throwable);
               }

@@ -2,6 +2,7 @@ package io.sye;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -19,10 +20,12 @@ import io.sye.api.ListRepositoriesResponse;
 import io.sye.service.ServiceBootstrap;
 import io.sye.service.ServiceConfig;
 import java.util.UUID;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.http.HttpStatus;
 
@@ -55,7 +58,7 @@ public class ListRepositoriesTest {
   }
 
   @Test
-  void testListRepositoriesFailed() throws JsonProcessingException {
+  void testListRepositoriesFailedNotFound() throws JsonProcessingException {
     final var repositorySdk = new RepositorySdk(url);
     final var response = repositorySdk.listRepositories(UUID.randomUUID().toString());
 
