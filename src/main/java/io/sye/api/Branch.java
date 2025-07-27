@@ -7,22 +7,19 @@ public class Branch {
   private String name;
   private String lastCommitSha;
 
+  public Branch() {}
+
+  public Branch(String name, String lastCommitSha) {
+    this.name = name;
+    this.lastCommitSha = lastCommitSha;
+  }
+
   public String name() {
     return name;
   }
 
-  public Branch name(String name) {
-    this.name = name;
-    return this;
-  }
-
   public String lastCommitSha() {
     return lastCommitSha;
-  }
-
-  public Branch lastCommitSha(String lastCommitSha) {
-    this.lastCommitSha = lastCommitSha;
-    return this;
   }
 
   @Override

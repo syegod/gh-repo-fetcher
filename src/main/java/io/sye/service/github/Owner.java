@@ -1,4 +1,4 @@
-package io.sye.service;
+package io.sye.service.github;
 
 import java.util.StringJoiner;
 
